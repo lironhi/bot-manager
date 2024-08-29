@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}All Bots{% endblock %}
+{% block content %}
+<div class="mb-4">
+  <div class="row align-items-center">
+    <div class="col-md-6 col-lg-5">
+      <h4 class="mb-8 breadcrumb-title">Overview : <span class="text-primary">All Bots System</span>
+      </h4>
+      <nav aria-label="breadcrumb" class="theme-breadcrumb" style="--bs-breadcrumb-divider: '\ea5f';">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">Home</a>
+          </li>
+          <span>
+            <iconify-icon icon="meteocons:dust-wind" class="fs-6"></iconify-icon>
+          </span>
+          <li class="breadcrumb-item" aria-current="page">All Bots</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="card mb-7">
+  <div class="card-body">
+    <div class="d-flex gap-6 border-bottom pb-4 fw-bold align-items-center flex-lg-nowrap flex-wrap">
+      <select class="form-select fw-semibold rounded-5 border w-auto" aria-label="Default select example">
+        <option selected>Monthly Volume </option>
+        <option value="1">Annual Volume</option>
+        <option value="2">Daily Volume</option>
+      </select>
+      <div class="dropdown">
+        <button class="btn bg-light dropdown-toggle text-body-color d-flex align-items-center gap-2 fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center ">
+            <iconify-icon icon="uiw:facebook"></iconify-icon>
+          </div>
+          Facebook
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item d-flex align-items-center gap-2 fw-semibold" href="javascript:void(0)">
+              <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center ">
+                <iconify-icon icon="ri:instagram-fill"></iconify-icon>
+              </div>
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center gap-2 fw-semibold" href="javascript:void(0)">
+              <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center ">
+                <iconify-icon icon="uil:whatsapp-alt"></iconify-icon>
+              </div>
+              Whatsapp
+            </a>
+          </li>
+        </ul>
+      </div>
+      <select class="form-select fw-semibold rounded-pill border" aria-label="Default select example">
+        <option selected>Status</option>
+        <option value="1">Online</option>
+        <option value="2">Offline</option>
+      </select>
+      <select class="form-select fw-semibold rounded-pill border" aria-label="Default select example">
+        <option selected>Error at</option>
+        <option value="1">None</option>
+        <option value="2">Today</option>
+        <option value="3">Last 7 Days</option>
+      </select>
+      <a href="javascript:void(0)" class="d-flex align-items-center gap-2 text-primary link-dark">
+        <iconify-icon icon="solar:add-circle-outline" class="fs-6"></iconify-icon>
+        <span class="fs-3">Apply Filters</span>
+      </a>
+    </div>
+    <div id="chart-area-spline"></div>
+    <div class="py-4">
+      <div class="d-flex gap-6 fw-bold align-items-center flex-lg-nowrap flex-wrap">
+        <p class="fs-3 fw-bold text-dark mb-0">Bots Actives: 0</p>
+        <p class="fs-3 fw-normal text-body-color mb-0">Total Bots: 7</p>
+      </div>
+    </div>
+    <!-- start Table -->
+    <div class="table-responsive">
+      <table id="botsTable" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col" onclick="sortTable(1)">Platform</th>
+            <th scope="col" onclick="sortTable(2)">Title</th>
+            <th scope="col">Groups</th>
+            <th scope="col">Activity</th>
+            <th scope="col" onclick="sortTable(5)">Time</th>
+            <th scope="col" onclick="sortTable(6)">Creator</th>
+            <th scope="col" onclick="sortTable(7)">Modified</th>
+            <th scope="col" onclick="sortTable(8)">Created</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows will be dynamically generated here -->
+          <!-- Example row -->
+          <tr>
+            <th scope="row">1</th>
+            <td>Facebook</td>
+            <td>Example Bot</td>
+            <td>5</td>
+            <td>Active</td>
+            <td>12:00 PM</td>
+            <td>John Doe</td>
+            <td>Yesterday</td>
+            <td>Last Week</td>
+            <td>
+              <button class="btn btn-primary btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </td>
+            </tr>
+            <!-- Example row 2 -->
+            <tr>
+              <th scope="row">2</th>
+              <td>Instagram</td>
+              <td>Another Bot</td>
+              <td>3</td>
+              <td>Inactive</td>
+              <td>02:30 PM</td>
+              <td>Jane Smith</td>
+              <td>Today</td>
+              <td>Last Month</td>
+              <td>
+                <button class="btn btn-primary btn-sm">Edit</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+            <!-- Example row 3 -->
+            <tr>
+              <th scope="row">3</th>
+              <td>Whatsapp</td>
+              <td>Sample Bot</td>
+              <td>10</td>
+              <td>Active</td>
+              <td>09:45 AM</td>
+              <td>Max Power</td>
+              <td>Last Week</td>
+              <td>Last Month</td>
+              <td>
+                <button class="btn btn-primary btn-sm">Edit</button>
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+            </table>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-end">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+            
+            <!-- Include this script to handle sorting -->
+            <script>
+              function sortTable(n) {
+                const table = document.getElementById("botsTable");
+                let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                switching = true;
+                dir = "asc"; 
+                while (switching) {
+                  switching = false;
+                  rows = table.rows;
+                  for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir === "asc") {
+                      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                      }
+                    } else if (dir === "desc") {
+                      if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                      }
+                    }
+                  }
+                  if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                  } else {
+                    if (switchcount === 0 && dir === "asc") {
+                      dir = "desc";
+                      switching = true;
+                    }
+                  }
+                }
+              }
+            </script>
+            
+    <!-- end Table -->
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Welcome to Callistobot{% endblock %}</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/callisto_logo.png' %}" />
+  <link rel="stylesheet" href="{% static 'node_modules/simplebar/dist/simplebar.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <!-- Modal -->
+  <div class="modal fade" id="aiModal" tabindex="-1" aria-labelledby="aiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="aiModalLabel">Future Feature</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          In a potential future
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark m1" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal End -->
+
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="#" class="text-nowrap logo-img">
+            <img src="{% static 'assets/images/logos/callisto.png' %}" alt="" /><span class="nav-small-cap ti nav-small-cap-icon fs-6 hide-menu">allisto Bot</span>
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <!-- Sidebar items go here -->
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'index' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="line-md:speedometer-loop" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <!-- Other sidebar items -->
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+              <span class="hide-menu">Bots</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'abots' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="svg-spinners:blocks-scale" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">All Bots</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'mbots' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="svg-spinners:blocks-shuffle-2" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">My Bots</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'cpanel' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="eos-icons:rotating-gear" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">Control Panel</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+    </aside>
+    <!--  Sidebar End -->
+
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="notificationIcon">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="{% static 'assets/images/profile/user1.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">My Account</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">My Task</p>
+                    </a>
+                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--  Header End -->
+
+      <!-- Main Content Block -->
+      <div class="container-fluid">
+        {% block content %}
+        <!-- Content will be inserted here -->
+        {% endblock %}
+      </div>
+      <!-- End Main Content Block -->
+
+      <!-- Footer -->
+      <div class="py-6 px-6 text-center">
+        <p class="mb-0 fs-4">Developed by <a href="https://github.com/lironhi" target="_blank"
+            class="pe-1 text-primary text-decoration-underline">LironHi</a></p>
+      </div>
+      <!-- End Footer -->
+    </div>
+  </div>
+
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/simplebar/dist/simplebar.js' %}"></script>
+  <script src="{% static 'assets/js/sidebarmenu.js' %}"></script>
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <script src="{% static 'assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/js/dashboard.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script>
+    document.getElementById('notificationIcon').addEventListener('click', function() {
+      var notificationPopup = new bootstrap.Modal(document.getElementById('notificationPopup'));
+      notificationPopup.show();
+    });
+  </script>
+  <script src="https://bootstrapdemos.adminmart.com/seodash/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="https://bootstrapdemos.adminmart.com/seodash/dist/assets/js/datatable/datatable-advanced.init.js"></script>
+  <script src="https://bootstrapdemos.adminmart.com/seodash/dist/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="https://bootstrapdemos.adminmart.com/seodash/dist/assets/js/apps/top-page-chart.js"></script>
+  {% block extra_scripts %}{% endblock %}
+  <!-- Notif Logs -->
+  <div class="modal fade" id="notificationPopup" tabindex="-1" aria-labelledby="notificationPopupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="notificationPopupLabel">Recent Logs</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Placeholder for logs -->
+          <ul class="list-group">
+            <li class="list-group-item">Log#136: All bots off</li>
+            <li class="list-group-item">Log#135: Bot 198-EF5 Created</li>
+            <li class="list-group-item">Log#134: Bot 198-D43 Created</li>
+            <li class="list-group-item">Log#133: Bot 198-AbF Failed</li>
+            <li class="list-group-item">Log#132: Bot 198-AbF Created</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark m1" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Notif End -->
+
+     <!-- 
+
+  <div class="modal-body">
+  <ul class="list-group">
+    {% for log in logs %}
+    <li class="list-group-item">{{ log.timestamp }}: {{ log.message }}</li>
+    {% endfor %}
+  </ul>
+</div> -->
+
+</body>
+
+</html>

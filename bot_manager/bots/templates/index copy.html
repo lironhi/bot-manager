@@ -1,0 +1,374 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Callistobot</title>
+  <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/callisto_logo.png' %}" />
+  <link rel="stylesheet" href="{% static 'node_modules/simplebar/dist/simplebar.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+</head>
+<!-- Modal -->
+<div class="modal fade" id="aiModal" tabindex="-1" aria-labelledby="aiModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aiModalLabel">Future Feature</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        In a potential future
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark m1" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!-- Sidebar Start -->
+    <aside class="left-sidebar">
+      <!-- Sidebar scroll-->
+      <div>
+        <div class="brand-logo d-flex align-items-center justify-content-between">
+          <a href="#" class="text-nowrap logo-img">
+            <img src="{% static 'assets/images/logos/callisto.png' %}" alt="" /><span class="nav-small-cap ti nav-small-cap-icon fs-6 hide-menu">allisto</span>
+          </a>
+          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+            <i class="ti ti-x fs-8"></i>
+          </div>
+        </div>
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+          <ul id="sidebarnav">
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+              <span class="hide-menu">Home</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="{% url 'index' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="line-md:speedometer-loop" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+              <span class="hide-menu">Bots</span>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'allbots' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="svg-spinners:blocks-scale" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">All Bots</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'bots' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="svg-spinners:blocks-shuffle-2" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">My Bots</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'controlpanel' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="eos-icons:rotating-gear" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">Control Panel</span>
+              </a>
+            </li>
+          </ul>
+          <div class="unlimited-access hide-menu bg-primary-subtle position-relative mb-7 mt-7 rounded-3">
+            <div class="d-flex">
+              <div class="unlimited-access-title me-3">
+                <h6 class="fw-semibold fs-4 mb-6 text-dark w-75">Check the news</h6>
+                <a href="#" target="_blank"
+                  class="btn btn-primary fs-2 fw-semibold lh-sm">News</a>
+              </div>
+              <div class="unlimited-access-img">
+                <img src="{% static 'assets/images/backgrounds/upbot.png' %}" width="120" height="100" alt="Update" class="img-fluid">
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- End Sidebar navigation -->
+      </div>
+      <!-- End Sidebar scroll-->
+    </aside>
+    <!--  Sidebar End -->
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="notificationIcon">
+                <i class="ti ti-bell-ringing"></i>
+                <div class="notification bg-primary rounded-circle"></div>
+              </a>
+            </li>
+          </ul>
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <li class="nav-item dropdown">
+                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  <img src="{% static 'assets/images/profile/user1.jpg' %}" alt="" width="35" height="35" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">My Profile</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">My Account</p>
+                    </a>
+                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                      <i class="ti ti-list-check fs-6"></i>
+                      <p class="mb-0 fs-3">My Task</p>
+                    </a>
+                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!--  Header End -->
+      <!-- Block-->
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                            Traffic Overview
+                            <span>
+                                <iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success" data-bs-title="Traffic Overview"></iconify-icon>
+                            </span>
+                        </h5>
+                        <div id="traffic-overview" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body text-center">
+              <img src="{% static 'assets/images/backgrounds/product-tip.png' %}" alt="image" class="img-fluid" width="205">
+              <h4 class="mt-7">Productivity Tips!</h4>
+              <p class="card-subtitle mt-2 mb-3">In the future you'll get the possibility to upgrade the productivity with Ai.</p>
+              <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#aiModal">Use Ai</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Lastest bots in activity</h5>
+              <div class="table-responsive">
+                <table class="table text-nowrap align-middle mb-0">
+                  <thead>
+                    <tr class="border-2 border-bottom border-primary border-0"> 
+                      <th scope="col" class="ps-0">Name</th>
+                      <th scope="col" >Groups</th>
+                      <th scope="col" class="text-center">Creator</th>
+                      <th scope="col" class="text-center">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <tr>
+                      <th scope="row" class="ps-0 fw-medium">
+                        <span class="table-link1 text-truncate d-block">Facebook - GroupFr1</span>
+                      </th>
+                      <td>
+                        <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp1</a>
+                      </td>
+                      <td class="text-center fw-medium">admin</td>
+                      <td class="text-center fw-medium">off</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ps-0 fw-medium">
+                        <span class="table-link1 text-truncate d-block">Facebook - GroupFr2</span>
+                      </th>
+                      <td>
+                        <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp2</a>
+                      </td>
+                      <td class="text-center fw-medium">admin</td>
+                      <td class="text-center fw-medium">off</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ps-0 fw-medium">
+                        <span class="table-link1 text-truncate d-block">Facebook - GroupSp1</span>
+                      </th>
+                      <td>
+                        <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp4</a>
+                      </td>
+                      <td class="text-center fw-medium">admin</td>
+                      <td class="text-center fw-medium">off</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ps-0 fw-medium">
+                        <span class="table-link1 text-truncate d-block">Facebook - GroupIt1</span>
+                      </th>
+                      <td>
+                        <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp3 | Grp5</a>
+                      </td>
+                      <td class="text-center fw-medium">admin</td>
+                      <td class="text-center fw-medium">off</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ps-0 fw-medium border-0">
+                        <span class="table-link1 text-truncate d-block">Facebook - GroupEn1</span>
+                      </th>
+                      <td class="border-0">
+                        <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp6</a>
+                      </td>
+                      <td class="text-center fw-medium border-0">admin</td>
+                      <td class="text-center fw-medium border-0">off</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title d-flex align-items-center gap-2 mb-5 pb-3">Sessions by
+                device<span><iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success" data-bs-title="Locations"></iconify-icon></span>
+              </h5>
+              <div class="row">
+                <div class="col-4">
+                  <iconify-icon icon="solar:laptop-minimalistic-line-duotone" class="fs-7 d-flex text-primary"></iconify-icon>
+                  <span class="fs-11 mt-2 d-block text-nowrap">Computers</span>
+                  <h4 class="mb-0 mt-1">100%</h4>
+                </div>
+                <div class="col-4">
+                  <iconify-icon icon="solar:smartphone-line-duotone" class="fs-7 d-flex text-secondary"></iconify-icon>
+                  <span class="fs-11 mt-2 d-block text-nowrap">Smartphone</span>
+                  <h4 class="mb-0 mt-1">0%</h4>
+                </div>
+                <div class="col-4">
+                  <iconify-icon icon="solar:tablet-line-duotone" class="fs-7 d-flex text-success"></iconify-icon>
+                  <span class="fs-11 mt-2 d-block text-nowrap">Tablets</span>
+                  <h4 class="mb-0 mt-1">0%</h4>
+                </div>
+              </div>
+
+              <div class="vstack gap-4 mt-7 pt-2">
+                <div>
+                  <div class="hstack justify-content-between">
+                    <span class="fs-3 fw-medium">Computers</span>
+                    <h6 class="fs-3 fw-medium text-dark lh-base mb-0">100%</h6>
+                  </div>
+                  <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-primary" style="width: 100%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="hstack justify-content-between">
+                    <span class="fs-3 fw-medium">Smartphones</span>
+                    <h6 class="fs-3 fw-medium text-dark lh-base mb-0">0%</h6>
+                  </div>
+                  <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-secondary" style="width: 0.1%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="hstack justify-content-between">
+                    <span class="fs-3 fw-medium">Tablets</span>
+                    <h6 class="fs-3 fw-medium text-dark lh-base mb-0">0%</h6>
+                  </div>
+                  <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-success" style="width: 0.1%"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-6 px-6 text-center">
+          <p class="mb-0 fs-4">Developed by <a href="https://github.com/lironhi" target="_blank"
+              class="pe-1 text-primary text-decoration-underline">LironHi</a></p>
+        </div>
+      </div>
+      <!-- Block End-->
+    </div>
+  </div>
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/simplebar/dist/simplebar.js' %}"></script>
+  <script src="{% static 'assets/js/sidebarmenu.js' %}"></script>
+  <script src="{% static 'assets/js/app.min.js' %}"></script>
+  <script src="{% static 'assets/libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+  <script src="{% static 'assets/js/dashboard.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script>
+    document.getElementById('notificationIcon').addEventListener('click', function() {
+      var notificationPopup = new bootstrap.Modal(document.getElementById('notificationPopup'));
+      notificationPopup.show();
+    });
+  </script>
+  <!-- 
+
+  <div class="modal-body">
+  <ul class="list-group">
+    {% for log in logs %}
+    <li class="list-group-item">{{ log.timestamp }}: {{ log.message }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+  -->
+  <!-- Notif Logs -->
+  <div class="modal fade" id="notificationPopup" tabindex="-1" aria-labelledby="notificationPopupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="notificationPopupLabel">Recent Logs</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Placeholder for logs -->
+          <ul class="list-group">
+            <li class="list-group-item">Log#136: All bots off</li>
+            <li class="list-group-item">Log#135: Bot 198-EF5 Created</li>
+            <li class="list-group-item">Log#134: Bot 198-D43 Created</li>
+            <li class="list-group-item">Log#133: Bot 198-AbF Failed</li>
+            <li class="list-group-item">Log#132: Bot 198-AbF Created</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark m1" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Notif End -->
+</body>
+
+</html>

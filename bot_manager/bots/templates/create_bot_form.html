@@ -1,0 +1,25 @@
+<form method="POST" action="{% url 'create_bot' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="botName" class="form-label">Bot Name</label>
+      <input type="text" class="form-control" id="botName" name="bot_name" required>
+    </div>
+    <div class="mb-3">
+      <label for="botPlatform" class="form-label">Platform</label>
+      <select class="form-select" id="botPlatform" name="bot_platform" required>
+        <option value="Facebook">Facebook</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Whatsapp">Whatsapp</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="botGroups" class="form-label">Groups</label>
+      <input type="number" class="form-control" id="botGroups" name="bot_groups" required>
+    </div>
+    <!-- Add more fields as needed -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary">Create Bot</button>
+    </div>
+  </form>
+  

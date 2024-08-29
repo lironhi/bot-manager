@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8">
+      <div class="card">
+          <div class="card-body">
+              <h5 class="card-title d-flex align-items-center gap-2 mb-4">
+                  Traffic Overview
+                  <span>
+                      <iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success" data-bs-title="Traffic Overview"></iconify-icon>
+                  </span>
+              </h5>
+              <div id="traffic-overview" >
+              </div>
+          </div>
+      </div>
+  </div>
+<div class="col-lg-4">
+<div class="card">
+  <div class="card-body text-center">
+    <img src="{% static 'assets/images/backgrounds/product-tip.png' %}" alt="image" class="img-fluid" width="205">
+    <h4 class="mt-7">Productivity Tips!</h4>
+    <p class="card-subtitle mt-2 mb-3">In the future you'll get the possibility to upgrade the productivity with Ai.</p>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#aiModal">Use Ai</button>
+  </div>
+</div>
+</div>
+<div class="col-lg-8">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Lastest bots in activity</h5>
+    <div class="table-responsive">
+      <table class="table text-nowrap align-middle mb-0">
+        <thead>
+          <tr class="border-2 border-bottom border-primary border-0"> 
+            <th scope="col" class="ps-0">Name</th>
+            <th scope="col" >Groups</th>
+            <th scope="col" class="text-center">Creator</th>
+            <th scope="col" class="text-center">Status</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr>
+            <th scope="row" class="ps-0 fw-medium">
+              <span class="table-link1 text-truncate d-block">Facebook - GroupFr1</span>
+            </th>
+            <td>
+              <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp1</a>
+            </td>
+            <td class="text-center fw-medium">admin</td>
+            <td class="text-center fw-medium">off</td>
+          </tr>
+          <tr>
+            <th scope="row" class="ps-0 fw-medium">
+              <span class="table-link1 text-truncate d-block">Facebook - GroupFr2</span>
+            </th>
+            <td>
+              <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp2</a>
+            </td>
+            <td class="text-center fw-medium">admin</td>
+            <td class="text-center fw-medium">off</td>
+          </tr>
+          <tr>
+            <th scope="row" class="ps-0 fw-medium">
+              <span class="table-link1 text-truncate d-block">Facebook - GroupSp1</span>
+            </th>
+            <td>
+              <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp4</a>
+            </td>
+            <td class="text-center fw-medium">admin</td>
+            <td class="text-center fw-medium">off</td>
+          </tr>
+          <tr>
+            <th scope="row" class="ps-0 fw-medium">
+              <span class="table-link1 text-truncate d-block">Facebook - GroupIt1</span>
+            </th>
+            <td>
+              <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp3 | Grp5</a>
+            </td>
+            <td class="text-center fw-medium">admin</td>
+            <td class="text-center fw-medium">off</td>
+          </tr>
+          <tr>
+            <th scope="row" class="ps-0 fw-medium border-0">
+              <span class="table-link1 text-truncate d-block">Facebook - GroupEn1</span>
+            </th>
+            <td class="border-0">
+              <a href="javascript:void(0)" class="link-primary text-dark fw-medium d-block">Grp6</a>
+            </td>
+            <td class="text-center fw-medium border-0">admin</td>
+            <td class="text-center fw-medium border-0">off</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<div class="col-lg-4">
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title d-flex align-items-center gap-2 mb-5 pb-3">Sessions by
+      device<span><iconify-icon icon="solar:question-circle-bold" class="fs-7 d-flex text-muted" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="tooltip-success" data-bs-title="Locations"></iconify-icon></span>
+    </h5>
+    <div class="row">
+      <div class="col-4">
+        <iconify-icon icon="solar:laptop-minimalistic-line-duotone" class="fs-7 d-flex text-primary"></iconify-icon>
+        <span class="fs-11 mt-2 d-block text-nowrap">Computers</span>
+        <h4 class="mb-0 mt-1">100%</h4>
+      </div>
+      <div class="col-4">
+        <iconify-icon icon="solar:smartphone-line-duotone" class="fs-7 d-flex text-secondary"></iconify-icon>
+        <span class="fs-11 mt-2 d-block text-nowrap">Smartphone</span>
+        <h4 class="mb-0 mt-1">0%</h4>
+      </div>
+      <div class="col-4">
+        <iconify-icon icon="solar:tablet-line-duotone" class="fs-7 d-flex text-success"></iconify-icon>
+        <span class="fs-11 mt-2 d-block text-nowrap">Tablets</span>
+        <h4 class="mb-0 mt-1">0%</h4>
+      </div>
+    </div>
+
+    <div class="vstack gap-4 mt-7 pt-2">
+      <div>
+        <div class="hstack justify-content-between">
+          <span class="fs-3 fw-medium">Computers</span>
+          <h6 class="fs-3 fw-medium text-dark lh-base mb-0">100%</h6>
+        </div>
+        <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-primary" style="width: 100%"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hstack justify-content-between">
+          <span class="fs-3 fw-medium">Smartphones</span>
+          <h6 class="fs-3 fw-medium text-dark lh-base mb-0">0%</h6>
+        </div>
+        <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-secondary" style="width: 0.1%"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hstack justify-content-between">
+          <span class="fs-3 fw-medium">Tablets</span>
+          <h6 class="fs-3 fw-medium text-dark lh-base mb-0">0%</h6>
+        </div>
+        <div class="progress mt-6" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success" style="width: 0.1%"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
