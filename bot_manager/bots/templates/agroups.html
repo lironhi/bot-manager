@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}All Groups{% endblock %}
+{% block content %}
+<div class="mb-4">
+    <div class="row align-items-center">
+        <div class="col-md-6 col-lg-5">
+            <h4 class="mb-8 breadcrumb-title">Overview : <span class="text-primary">All The Groups</span></h4>
+            <nav aria-label="breadcrumb" class="theme-breadcrumb" style="--bs-breadcrumb-divider: '\ea5f';">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="{% url 'index' %}">Home</a>
+                    </li>
+                    <span>
+                        <iconify-icon icon="meteocons:dust-wind" class="fs-6"></iconify-icon>
+                    </span>
+                    <li class="breadcrumb-item" aria-current="page">All Groups</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-md-6 col-lg-7 text-end">
+            
+            <a href="javascript:void(0)" class="btn btn-primary align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#groupModal">
+                <iconify-icon icon="solar:add-circle-line-duotone" class="fs-7"></iconify-icon>Add a new group
+              </a>
+              
+        </div>
+    </div>
+</div>
+<div class="card mb-7">
+    <div class="card-body">
+        <!-- start Table -->
+        <div class="table-responsive">
+            <table id="botsTable" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" onclick="sortTable(1)">Title</th>
+                        <th scope="col" onclick="sortTable(2)">Platform</th>
+                        <th scope="col" onclick="sortTable(3)">Url</th>
+                        <th scope="col" onclick="sortTable(4)">Added At</th>
+                        <th scope="col" onclick="sortTable(5)">Modified</th>
+                        <th scope="col" onclick="sortTable(6)">isActive</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %}
+                    <tr>
+                        <th scope="row">{{ group.id }}</th>
+                        <td>{{ group.title }}</td>
+                        <td>{{ group.platform }}</td>
+                        <td>{{ group.url }}</td>
+                        <td>{{ group.added_at }}</td>
+                        <td>{{ group.modified_at }}</td>
+                        <td>{{ group.is_active|yesno:"Yes,No" }}</td>
+                        <td>
+                            <a href="{% url 'edit_group' group.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_group' group.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Include this script to handle sorting -->
+        <script>
+            function sortTable(n) {
+                const table = document.getElementById("botsTable");
+                let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                switching = true;
+                dir = "asc";
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[n];
+                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                        if (dir === "asc") {
+                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        } else if (dir === "desc") {
+                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                shouldSwitch = true;
+                                break;
+                            }
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                        switchcount++;
+                    } else {
+                        if (switchcount === 0 && dir === "asc") {
+                            dir = "desc";
+                            switching = true;
+                        }
+                    }
+                }
+            }
+        </script>
+        <!-- end Table -->
+    </div>
+</div>
+  <!-- Modal -->
+<div class="modal fade" id="groupModal" tabindex="-1" aria-labelledby="groupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="groupModalLabel">Create/Edit Group</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="groupForm" method="POST" action="{% url 'create_group' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="groupTitle" class="form-label">Group Title</label>
+                        <input type="text" class="form-control" id="groupTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="groupPlatform" class="form-label">Platform</label>
+                        <select class="form-select" id="groupPlatform" name="platform" required>
+                            <option value="" selected>Select a platform</option>
+                            <option value="Facebook">Facebook</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="groupUrl" class="form-label">Group URL</label>
+                        <input type="url" class="form-control" id="groupUrl" name="url" required>
+                        <div class="form-text">URL must begin with https://www.facebook.com/groups/ if Facebook is selected.</div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="groupIsActive" name="is_active" checked>
+                            <label class="form-check-label" for="groupIsActive">
+                                Active
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Group</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const platformSelect = document.getElementById('groupPlatform');
+    const urlInput = document.getElementById('groupUrl');
+
+    platformSelect.addEventListener('change', function() {
+        if (platformSelect.value === 'Facebook') {
+            urlInput.setAttribute('pattern', '^https://www.facebook.com/groups/.*');
+            urlInput.setAttribute('placeholder', 'https://www.facebook.com/groups/');
+        } else {
+            urlInput.removeAttribute('pattern');
+            urlInput.removeAttribute('placeholder');
+        }
+    });
+});
+</script>
+<!--<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('groupForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Recharger la page après succès
+                } else {
+                    // Gérer les erreurs ici
+                }
+            });
+        });
+    });
+</script> -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('groupForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Recharger la page après succès
+            } else {
+                // Gérer les erreurs ici
+                alert('Failed to save the group: ' + JSON.stringify(data.errors));
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

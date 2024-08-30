@@ -84,6 +84,19 @@
               </a>
             </li>
             <li class="sidebar-item">
+              <a class="sidebar-link" href="{% url 'agroups' %}" aria-expanded="false">
+                <span>
+                  <iconify-icon icon="line-md:star-pulsating-loop" class="fs-6"></iconify-icon>
+                </span>
+                <span class="hide-menu">All Groups</span>
+              </a>
+            </li>
+            {% if request.user.is_superuser %}
+            <li class="nav-small-cap">
+              <i class="ti ti-dots nav-small-cap-icon fs-6"></i>
+              <span class="hide-menu">Admin</span>
+            </li>
+            <li class="sidebar-item">
               <a class="sidebar-link" href="{% url 'cpanel' %}" aria-expanded="false">
                 <span>
                   <iconify-icon icon="eos-icons:rotating-gear" class="fs-6"></iconify-icon>
@@ -91,6 +104,7 @@
                 <span class="hide-menu">Control Panel</span>
               </a>
             </li>
+            {% endif %}
           </ul>
         </nav>
         <!-- End Sidebar navigation -->
@@ -118,6 +132,9 @@
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <span class="navbar-text me-3">
+                Log as: {{ request.user.username }}
+            </span>
               <li class="nav-item dropdown">
                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                   aria-expanded="false">
@@ -137,7 +154,10 @@
                       <i class="ti ti-list-check fs-6"></i>
                       <p class="mb-0 fs-3">My Task</p>
                     </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</button>
+                    </form>
                   </div>
                 </div>
               </li>

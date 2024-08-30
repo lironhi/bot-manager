@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-6 col-lg-7 text-end">
             
-            <a href="javascript:void(0)" class="btn btn-primary align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createBotModal">
+            <a href="javascript:void(0)" class="btn btn-primary align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#botModal">
                 <iconify-icon icon="solar:add-circle-line-duotone" class="fs-7"></iconify-icon>Add a new bot
               </a>
               
@@ -159,23 +159,102 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="createBotModal" tabindex="-1" aria-labelledby="createBotModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createBotModalLabel">Create a New Bot</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="botModal" tabindex="-1" aria-labelledby="botModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="botModalLabel">Create/Edit Bot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="botForm" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="botPlatform" class="form-label">Platform</label>
+                        <select class="form-select" id="botPlatform" name="bot_platform" required>
+                            <option value="" selected>Select a platform</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <!-- Ajoutez d'autres options si nécessaire -->
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="botTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="botTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="botContent" class="form-label">Content</label>
+                        <textarea id="botContent" name="content" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="botImages" class="form-label">Images</label>
+                        <div class="dropzone" id="botImagesDropzone">
+                            <input type="file" name="images" class="form-control" multiple>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="botGroups" class="form-label">Select Groups</label>
+                        <select id="botGroups" name="groups" class="form-select" multiple>
+                            {% for group in groups %}
+                                <option value="{{ group.id }}">{{ group.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="sendOpt" class="form-label">Send Option</label>
+                        <select class="form-select" id="sendOpt" name="send_opt" required>
+                            <option value="all_days">All Days</option>
+                            <option value="selected_days">Selected Days</option>
+                            <option value="day">One Day per Week</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="daysOfWeek" style="display: none;">
+                        <label class="form-label">Select Days</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="monday" name="days[]" value="Monday">
+                            <label class="form-check-label" for="monday">Monday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="tuesday" name="days[]" value="Tuesday">
+                            <label class="form-check-label" for="tuesday">Tuesday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="wednesday" name="days[]" value="Wednesday">
+                            <label class="form-check-label" for="wednesday">Wednesday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="thursday" name="days[]" value="Thursday">
+                            <label class="form-check-label" for="thursday">Thursday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="friday" name="days[]" value="Friday">
+                            <label class="form-check-label" for="friday">Friday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="saturday" name="days[]" value="Saturday">
+                            <label class="form-check-label" for="saturday">Saturday</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sunday" name="days[]" value="Sunday">
+                            <label class="form-check-label" for="sunday">Sunday</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sendTime" class="form-label">Send Time</label>
+                        <input type="time" class="form-control" id="sendTime" name="send_time" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-          <div id="modalContent">
-            <!-- Le contenu sera chargé ici dynamiquement -->
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
   
-  <script>
+<!--  <script>
     document.addEventListener('DOMContentLoaded', function() {
       const modalContent = document.getElementById('modalContent');
   
@@ -188,5 +267,54 @@
           });
       });
     });
-  </script>
+  </script>-->
+  <!-- JS Libraries for Enhancing the Form -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tinymce@5/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.2/bootstrap-duallistbox.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap4-duallistbox/4.0.2/bootstrap-duallistbox.min.css" />
+
+  <script>
+    // Initialize the text editor
+    tinymce.init({
+        selector: '#botContent',
+        plugins: 'link image code',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image'
+    });
+
+    // Initialize the dropzone
+    Dropzone.options.botImagesDropzone = {
+        url: '/your-upload-url/',
+        maxFilesize: 2, // in MB
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true
+    };
+
+    // Initialize the dual listbox for group selection
+    $('#botGroups').bootstrapDualListbox({
+        nonSelectedListLabel: 'Available Groups',
+        selectedListLabel: 'Selected Groups',
+        moveOnSelect: false
+    });
+
+    // Form submission
+    document.getElementById('botForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        // Add your form submission logic here, e.g., AJAX request
+    });
+</script>
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const sendOptSelect = document.getElementById('sendOpt');
+    const daysOfWeekDiv = document.getElementById('daysOfWeek');
+
+    sendOptSelect.addEventListener('change', function() {
+        if (this.value === 'selected_days') {
+            daysOfWeekDiv.style.display = 'block';
+        } else {
+            daysOfWeekDiv.style.display = 'none';
+        }
+    });
+});
+</script>
 {% endblock %}
