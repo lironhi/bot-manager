@@ -68,16 +68,6 @@ def create_bot(request):
     return redirect('index')
 
 # Func to create a group
-'''def create_group(request):
-    if request.method == 'POST':
-        form = BotGroupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Group created successfully!')
-            return redirect('agroups')
-    else:
-        form = BotGroupForm()
-    return render(request, 'create_group_form.html', {'form': form})'''
 def create_group(request):
     if request.method == 'POST':
         form = BotGroupForm(request.POST)
